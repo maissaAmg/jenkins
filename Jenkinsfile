@@ -11,28 +11,20 @@ pipeline {
         }
     
     stage('Code Analysis') {
-      parallel {
-        stage('Code Analysis') {
           steps {
-            withSonarQubeEnv('TP8_OGL_JENKINS') {
+            withSonarQubeEnv('jenkins') {
               bat 'sonar-scanner'
             }
-
           }
         }
-      }
-    }
     
+    stage('Code Quality') {
+          steps {
+           waitForQualityGate abortPipeline: true
+          }
+        }
+      
     stage('build') {
-      post {
-        success {
-          mail(subject: 'Build Success', body: 'New Build is deployed !', from: 'jm_amghar@esi.dz', to: 'jm_amghar@esi.dz')
-        }
-        failure {
-          mail(subject: 'Build Failure', body: "the new build isn't deployed succesfully !", from: 'jm_amghar@esi.dz', to: 'jm_amghar@esi.dz')
-        }
-        
-      }
       steps {
         bat 'gradle build'
         bat 'gradle javadoc'
@@ -47,12 +39,20 @@ pipeline {
         bat 'gradle publish'
       }
     }
-
-    stage('Slack Notifications') {
-      steps {
-        slackSend(baseUrl: 'https://hooks.slack.com/services/', token: 'T02S71TC7EH/B02SZN07R08/df3SCOkFu6oGC9VYtrwEVUD6', message: 'New build is Created', channel: 'OGL')
-      }
+    
+    stage("Notification"){
+      steps{
+        post {
+        success {
+          mail(subject: 'Pipeline Success', body: 'Pipeline déployé avec succès !', from: 'jm_amghar@esi.dz', to: 'jm_amghar@esi.dz')
+        }
+        failure {
+          mail(subject: 'Pipeline Failure', body: "Pipeline n'a pas été déployé avec succès !", from: 'jm_amghar@esi.dz', to: 'jm_amghar@esi.dz')
+        }
+          
+        slackSend(baseUrl: 'https://hooks.slack.com/services/', token: 'T02S71TC7EH/B02SZN07R08/df3SCOkFu6oGC9VYtrwEVUD6', message: 'Pipeline créé', channel: 'projet')
+        
+           }
+        }
     }
-
-  }
 }
