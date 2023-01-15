@@ -12,13 +12,14 @@ pipeline {
     
     stage('Code Analysis') {
           steps {
-            withSonarQubeEnv('jenkins') {
-              bat 'sonar-scanner'
+            withSonarQubeEnv('sonar') {
+              bat 'gradle sonarqube'
             }
           }
         }
     
     stage('Code Quality') {
+          options { timeout(time: 30, unit: 'MINUTES') }
           steps {
            waitForQualityGate abortPipeline: true
           }
