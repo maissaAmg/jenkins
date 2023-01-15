@@ -3,7 +3,10 @@ pipeline {
   stages {
     stage("test") {
           steps {
+            junit(testResults: 'build/reports/tests/test', allowEmptyResults: true)
+            archiveArtifacts 'build/reports/tests/test/*'
             cucumber 'target/report.json'
+            
           }
         }
     
@@ -35,7 +38,7 @@ pipeline {
         bat 'gradle javadoc'
         archiveArtifacts 'build/libs/*.jar'
         archiveArtifacts 'build/docs/javadoc/*'
-        junit(testResults: 'build/reports/tests/test', allowEmptyResults: true)
+
       }
     }
 
