@@ -49,10 +49,8 @@ pipeline {
         failure {
           mail(subject: 'Pipeline Failure', body: "Pipeline n'a pas été déployé avec succès !", from: 'jm_amghar@esi.dz', to: 'jm_amghar@esi.dz')
         }
-          
-        slackSend(baseUrl: 'https://hooks.slack.com/services/', token: 'T02S71TC7EH/B02SZN07R08/df3SCOkFu6oGC9VYtrwEVUD6', message: 'Pipeline créé', channel: 'projet')
-        
            }
+        notifyEvents message: 'Pipeline terminée', token: '01234567890123456789012345678901'
         }
     }
 }
