@@ -120,7 +120,7 @@ public class MatrixMathematics {
 			return (transpose(cofactor(matrix)).multiplyByConstant(1.0/determinant(matrix)));
 		}
 		else{
-			throw new NoSquareException;
+			return NULL;
 		}
 
 	}
