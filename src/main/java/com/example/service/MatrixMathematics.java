@@ -121,6 +121,7 @@ public class MatrixMathematics {
 		}
 		else{
 			return null;
+			//
 		}
 
 	}
