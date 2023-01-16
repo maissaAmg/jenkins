@@ -4,7 +4,7 @@ pipeline {
     stage("test") {
           steps {
             bat 'gradle test'
-            junit(testResults: 'build/reports/tests/test', allowEmptyResults: true)
+            junit(testResults: 'build/test-results/**/*.xml', allowEmptyResults: true)
             cucumber reportTitle: 'cucumber report',fileIncludePattern:'target/report.json'
             
           }
