@@ -3,9 +3,10 @@ pipeline {
   stages {
     stage("test") {
           steps {
+            bat 'gradle test'
             junit(testResults: 'build/reports/tests/test', allowEmptyResults: true)
             archiveArtifacts 'build/reports/tests/test/*'
-            cucumber 'target/report.json'
+            cucumber reportTitle: 'cucumber report',fileIncludePattern:'target/report.json'
             
           }
         }
