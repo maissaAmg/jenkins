@@ -51,7 +51,7 @@ pipeline {
           mail(subject: 'Pipeline Failure', body: "Pipeline n'a pas été déployé avec succès !", from: 'jm_amghar@esi.dz', to: 'jm_amghar@esi.dz')
         }
            }
-        notifyEvents message: 'Pipeline terminée', token: '01234567890123456789012345678901'
+        notifyEvents message: 'Pipeline terminée', token: '_Llsr3gFylnymvmkH3zyUVKSXC3oTijH'
         }
     }
 }
