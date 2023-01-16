@@ -44,14 +44,14 @@ pipeline {
     stage("Notification"){
         post {
                 success {
-                  mail(subject: 'Pipeline Success', body: 'Pipeline déployé avec succès !', from: 'jm_amghar@esi.dz', to: 'jm_amghar@esi.dz')
+                  mail(subject: 'Pipeline Success', body: 'Pipeline deploye avec succes !', from: 'jm_amghar@esi.dz', to: 'jm_amghar@esi.dz')
                 }
                 failure {
-                  mail(subject: 'Pipeline Failure', body: "Pipeline n'a pas été déployé avec succès !", from: 'jm_amghar@esi.dz', to: 'jm_amghar@esi.dz')
+                  mail(subject: 'Pipeline Failure', body: "Pipeline n'a pas ete deploye avec succes !", from: 'jm_amghar@esi.dz', to: 'jm_amghar@esi.dz')
                 }
                    }
       steps{
-        notifyEvents message: 'Pipeline terminée', token: '_Llsr3gFylnymvmkH3zyUVKSXC3oTijH'
+        notifyEvents message: 'Pipeline terminee', token: '_Llsr3gFylnymvmkH3zyUVKSXC3oTijH'
         }
     }
 
