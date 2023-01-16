@@ -19,7 +19,6 @@ pipeline {
         }
     
     stage('Code Quality') {
-          options
           steps {
            timeout(time: 1, unit: 'HOURS') {
                 waitForQualityGate abortPipeline: true
