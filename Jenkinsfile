@@ -5,7 +5,6 @@ pipeline {
           steps {
             bat 'gradle test'
             junit(testResults: 'build/reports/tests/test', allowEmptyResults: true)
-            archiveArtifacts 'build/reports/tests/test/*'
             cucumber reportTitle: 'cucumber report',fileIncludePattern:'target/report.json'
             
           }
