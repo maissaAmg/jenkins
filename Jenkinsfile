@@ -3,13 +3,14 @@ pipeline {
   stages {
     stage("test") {
           steps {
+            bat 'gradle test'
             junit(testResults: 'build/reports/tests/test', allowEmptyResults: true)
             archiveArtifacts 'build/reports/tests/test/*'
-            cucumber reportTitle: 'cucumber report', fileIncludePattern:'target/report.json'
-
+            cucumber reportTitle: 'cucumber report',fileIncludePattern:'target/report.json'
+            
           }
         }
-
+    
     stage('Code Analysis') {
           steps {
             withSonarQubeEnv('sonar') {
@@ -17,21 +18,20 @@ pipeline {
             }
           }
         }
-
+    
     stage('Code Quality') {
           options { timeout(time: 30, unit: 'MINUTES') }
           steps {
            waitForQualityGate abortPipeline: true
           }
         }
-
+      
     stage('build') {
       steps {
         bat 'gradle build'
         bat 'gradle javadoc'
         archiveArtifacts 'build/libs/*.jar'
         archiveArtifacts 'build/docs/javadoc/*'
-
       }
     }
 
@@ -54,4 +54,8 @@ pipeline {
         notifyEvents message: 'Pipeline terminée', token: '_Llsr3gFylnymvmkH3zyUVKSXC3oTijH'
         }
     }
+
 }
+
+}
+
